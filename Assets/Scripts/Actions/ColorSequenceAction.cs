@@ -22,6 +22,11 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
 
     void Start()
     {
+        EnsureValidData();
+    }
+
+    void EnsureValidData() 
+    {
         if (selectedImage)
             selectedImageStartColor = selectedImage.color;
         else throw new Exception("Insert an image in the inspector for ColorSequenceAction of object " + gameObject.name);
