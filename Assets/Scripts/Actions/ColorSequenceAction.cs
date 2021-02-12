@@ -10,14 +10,15 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
 
     int pressCounter = 0;
     Color selectedImageStartColor;
-    bool isChangingColor = false;
-    bool isResetAllowed = false;
+
+    IEnumerator corResetButtons;
+    IEnumerator corColorSequence;
 
     public void Press()
     {
         pressCounter++;
-        StartCoroutine(ColorSequence());
-        StartCoroutine(ResetButtonWhenAllowed());
+        corColorSequence = ColorSequence();
+        StartCoroutine(corColorSequence);
     }
 
     void Start()
@@ -32,14 +33,42 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
         else throw new Exception("Insert an image in the inspector for " + GetType().ToString() + " of object " + gameObject.name);
     }
 
-    IEnumerator ColorSequence() 
+    IEnumerator ColorSequence()
     {
-        //Ensure only one ColorSequence coroutine is running
-        if (isChangingColor) yield break;
-        isChangingColor = true;
-        isResetAllowed = false;
+        int currentPressCount = pressCounter;
+
+        if (corResetButtons != null) StopCoroutine(corResetButtons);
 
         yield return new WaitForSeconds(2);
+        SwitchBetweenColors();
+
+        //Reset if no further input
+        if (currentPressCount == pressCounter)
+        {
+            corResetButtons = ResetButtonWhenAllowed();
+            StartCoroutine(corResetButtons);
+        }
+    }
+
+    IEnumerator ResetButtonWhenAllowed() 
+    {
+        int currentPressCount = pressCounter;
+
+        yield return new WaitForSeconds(5);
+        if (currentPressCount == pressCounter)
+        {
+            ResetValues();
+        }
+    }
+
+    void ResetValues() 
+    {
+        pressCounter = 0;
+        selectedImage.color = selectedImageStartColor;
+    }
+
+    private void SwitchBetweenColors()
+    {
         switch (pressCounter)
         {
             case 1:
@@ -52,31 +81,7 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
                 selectedImage.color = new Color32(157, 3, 252, 255);
                 break;
             default:
-                //Reset();
                 break;
         }
-        pressCounter = 0;
-        isChangingColor = false;
-        isResetAllowed = true;
-    }
-
-    IEnumerator ResetButtonWhenAllowed() 
-    {
-        yield return new WaitUntil(() => isResetAllowed);
-        int currentPressCount = pressCounter;
-
-        yield return new WaitForSeconds(5);
-        if (currentPressCount == pressCounter && isResetAllowed && !isChangingColor)
-        {
-            ResetValues();
-        }
-        isResetAllowed = false;
-        StartCoroutine(ResetButtonWhenAllowed());
-    }
-
-    void ResetValues() 
-    {
-        pressCounter = 0;
-        selectedImage.color = selectedImageStartColor;
     }
 }
