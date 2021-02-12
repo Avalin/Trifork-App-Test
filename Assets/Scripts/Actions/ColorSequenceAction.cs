@@ -66,7 +66,7 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
         int currentPressCount = pressCounter;
 
         yield return new WaitForSeconds(5);
-        if (currentPressCount == pressCounter && isResetAllowed)
+        if (currentPressCount == pressCounter && isResetAllowed && !isChangingColor)
         {
             ResetValues();
         }
