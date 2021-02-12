@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "8fdc8832",
         "name": "com.Avalin.com.unity.template.mobile2D",
-        "processId": 6479,
+        "processId": 6480,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -24,6 +24,12 @@
             "deviceId": "8fdc8832",
             "name": "com.Avalin.com.unity.template.mobile2D",
             "processId": 6479,
+            "exited": false
+        },
+        {
+            "deviceId": "8fdc8832",
+            "name": "com.Avalin.com.unity.template.mobile2D",
+            "processId": 6480,
             "exited": false
         }
     ],
