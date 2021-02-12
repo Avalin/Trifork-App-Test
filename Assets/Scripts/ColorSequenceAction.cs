@@ -17,7 +17,7 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
     {
         pressCounter++;
         StartCoroutine(ColorSequence());
-        StartCoroutine(ResetButton());
+        StartCoroutine(ResetButtonWhenAllowed());
     }
 
     void Start()
@@ -54,7 +54,7 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
         isResetAllowed = true;
     }
 
-    IEnumerator ResetButton() 
+    IEnumerator ResetButtonWhenAllowed() 
     {
         yield return new WaitUntil(() => isResetAllowed);
         int currentPressCount = pressCounter;
@@ -62,13 +62,13 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
         yield return new WaitForSeconds(5);
         if (currentPressCount == pressCounter && isResetAllowed)
         {
-            Reset();
+            ResetValues();
         }
         isResetAllowed = false;
-        StartCoroutine(ResetButton());
+        StartCoroutine(ResetButtonWhenAllowed());
     }
 
-    void Reset() 
+    void ResetValues() 
     {
         pressCounter = 0;
         selectedImage.color = selectedImageStartColor;
