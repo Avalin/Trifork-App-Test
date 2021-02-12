@@ -29,7 +29,7 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
     {
         if (selectedImage)
             selectedImageStartColor = selectedImage.color;
-        else throw new Exception("Insert an image in the inspector for ColorSequenceAction of object " + gameObject.name);
+        else throw new Exception("Insert an image in the inspector for " + GetType().ToString() + " of object " + gameObject.name);
     }
 
     IEnumerator ColorSequence() 
