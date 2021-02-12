@@ -45,6 +45,7 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
         //Reset if no further input
         if (currentPressCount == pressCounter)
         {
+            pressCounter = 0;
             corResetButtons = ResetButtonWhenAllowed();
             StartCoroutine(corResetButtons);
         }
