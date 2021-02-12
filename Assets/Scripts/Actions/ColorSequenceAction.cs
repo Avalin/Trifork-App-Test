@@ -37,6 +37,7 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
         //Ensure only one ColorSequence coroutine is running
         if (isChangingColor) yield break;
         isChangingColor = true;
+        isResetAllowed = false;
 
         yield return new WaitForSeconds(2);
         switch (pressCounter)
@@ -48,7 +49,7 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
                 selectedImage.color = Color.red;
                 break;
             case 5:
-                selectedImage.color = new Color(1, 0, 1, 1);
+                selectedImage.color = new Color32(157, 3, 252, 255);
                 break;
             default:
                 //Reset();
