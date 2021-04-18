@@ -45,7 +45,7 @@ public class ColorSequenceAction : MonoBehaviour, IPressable
         //Reset if no further input
         if (currentPressCount == pressCounter)
         {
-            pressCounter = 0;
+            pressCounter = 0; // Så kan man trykke på knappen og ændre dens farve selvom den er sat til en anden farve og ikke er blevet reset, hvis man vil
             corResetButtons = ResetButtonWhenAllowed();
             StartCoroutine(corResetButtons);
         }

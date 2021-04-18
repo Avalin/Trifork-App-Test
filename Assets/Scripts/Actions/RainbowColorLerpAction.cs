@@ -9,7 +9,7 @@ public class RainbowColorLerpAction : MonoBehaviour, IPressable
     [SerializeField] Image selectedImage;
 
     Color selectedImageStartColor;
-    Color nextColor = Color.blue;
+    Color nextColor = Color.magenta;
 
     int colorCounter = -1;
 
@@ -30,12 +30,17 @@ public class RainbowColorLerpAction : MonoBehaviour, IPressable
     {
         if (isActivated)
         {
-            StopAllCoroutines();
-            selectedImage.color = selectedImageStartColor;
-            isActivated = false;
+            DeactivateRainbowColorLerp();
         }
         else
             StartCoroutine(RandomColorLerp(2f));
+    }
+
+    private void DeactivateRainbowColorLerp() 
+    {
+        StopAllCoroutines();
+        selectedImage.color = selectedImageStartColor;
+        isActivated = false;
     }
 
     private void GetNextColor() 
